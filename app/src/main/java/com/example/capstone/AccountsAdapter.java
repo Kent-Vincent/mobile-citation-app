@@ -24,7 +24,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
     private static List<Accounts> accounts;
 
 
-    public AccountsAdapter(Context context, List<Accounts> accounts, FirebaseAuth auth,OnItemClickListener listener) {
+    public AccountsAdapter(Context context, List<Accounts> accounts, FirebaseAuth auth, OnItemClickListener listener) {
         this.context = context;
         this.accounts = accounts;
         this.auth = auth;
