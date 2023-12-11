@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "617440662741",
+    "project_id": "mobile-citation-device",
+    "storage_bucket": "mobile-citation-device.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617440662741:android:f05430bf80d9d46cf8be5c",
+        "android_client_info": {
+          "package_name": "com.example.capstone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617440662741-seivup0o86frthq99gbn33ic2g9rub9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfKXq3Kh9zTmWBQbS8_MJpOjzDeUe2NQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617440662741-seivup0o86frthq99gbn33ic2g9rub9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

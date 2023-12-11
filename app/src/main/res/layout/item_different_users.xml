@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+            <TextView
+                android:id="@+id/violation_name_recycle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:fontFamily="@font/prompt_bold"
+                android:textColor="#00425A"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/violation_nickname_recycle"
+                android:layout_below="@+id/violation_name_recycle"
+                android:textSize="15sp"
+                android:text="nickname"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/prompt"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:id="@+id/button"
+                android:layout_height="50dp"
+                android:src="@drawable/greater_than"
+                android:layout_marginLeft="230dp"
+                android:layout_marginTop="5dp"/>
+    
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/underline"
+                android:layout_marginTop="70dp"/>
+
+</RelativeLayout>

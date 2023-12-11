@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateTicketNew">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:backgroundTint="#00425A">
+
+        <TextView
+            android:layout_width="321dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="90dp"
+            android:fontFamily="@font/prompt_bold"
+            android:text="Traffic Violation"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ScrollView
+        android:layout_marginTop="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="scrollview"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="10dp"
+        android:layout_marginTop="150dp"
+        android:layout_width="match_parent"
+        android:id="@+id/recyclerView"
+        android:layout_height="400dp" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="550dp"
+        android:backgroundTint="#00425A"
+        android:fontFamily="@font/prompt_bold"
+        android:text="Cancel"
+        app:cornerRadius="8dp" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="550dp"
+        android:backgroundTint="#00425A"
+        android:fontFamily="@font/prompt_bold"
+        android:text="Next"
+        app:cornerRadius="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/violationTxt"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="600dp"
+        android:fontFamily="@font/prompt_bold"
+        android:text=""
+        android:textColor="@color/black"
+        android:visibility="invisible"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/priceTxt"
+        android:layout_below="@+id/violationTxt"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="@font/prompt_bold"
+        android:visibility="invisible"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/violationTxtSpecify"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="600dp"
+        android:fontFamily="@font/prompt_bold"
+        android:visibility="invisible"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/priceTxtSpecify"
+        android:layout_below="@id/priceTxtSpecify"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:fontFamily="@font/prompt_bold"
+        android:text="0"
+        android:visibility="invisible"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+</RelativeLayout>

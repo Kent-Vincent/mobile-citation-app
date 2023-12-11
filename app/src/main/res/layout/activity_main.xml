@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/login_btn_officer"
+        android:layout_width="315dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="450dp"
+        android:backgroundTint="#AD00425A"
+        android:text="Continue as CTTMO"
+        android:textSize="20sp"
+        app:cornerRadius="50dp" />
+
+    <Button
+        android:id="@+id/login_btn_city"
+        android:layout_width="315dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="520dp"
+        android:backgroundTint="#333333"
+        android:text="Continue as City Treasurer"
+        android:textSize="20sp"
+        app:cornerRadius="50dp" />
+
+    <ImageView
+        android:layout_marginLeft="300dp"
+        android:id="@+id/manyUser"
+        android:layout_marginTop="20dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/userdash"/>
+
+</RelativeLayout>

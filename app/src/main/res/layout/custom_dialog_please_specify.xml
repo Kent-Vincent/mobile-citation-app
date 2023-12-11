@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Violations In Connection With Licensing"
+            android:fontFamily="@font/prompt"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#00425A"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r1"
+            android:layout_height="wrap_content"
+            android:text="Driving With SP(Not Accompanied by Professional Driver)"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inappropriate Driver's License"
+            android:id="@+id/r2"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r3"
+            android:layout_height="wrap_content"
+            android:text="Reckless Driving"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r4"
+            android:layout_height="wrap_content"
+            android:text="Failure To Provide Canvass Cover"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r5"
+            android:layout_height="wrap_content"
+            android:text="Obstructing The Free Passage of Another Vehicle"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r6"
+            android:layout_height="wrap_content"
+            android:text="Failure To Present OR/CR/DL"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r7"
+            android:layout_height="wrap_content"
+            android:text="Failure to Wear Seatbelt Private"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r8"
+            android:layout_height="wrap_content"
+            android:text="Failure to Wear Seatbelt Public"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r9"
+            android:layout_height="wrap_content"
+            android:text="Child on Board of Motorcycle"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/prompt_bold"
+            android:text="Violations In Connection With MV,Registration/Operation"
+            android:textColor="#00425A"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r10"
+            android:layout_height="wrap_content"
+            android:text="Driving Unregistered Motor Vehicle"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r11"
+            android:layout_height="wrap_content"
+            android:text="Improper Registration"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r12"
+            android:layout_height="wrap_content"
+            android:text="Illegal Attachment of Body Type"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r13"
+            android:layout_height="wrap_content"
+            android:text="Unauthorized Modification"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp"/>
+
+        <CheckBox
+            android:id="@+id/r14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/prompt"
+            android:text="Failure/Improper Attachment MV Plates"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/prompt"
+            android:gravity="center_horizontal"
+            android:text="Violations In Connection With Franchise"
+            android:textColor="#00425A"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/prompt_bold"
+            android:text="Colorum Violation"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r15"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Bus"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r16"
+            android:layout_height="wrap_content"
+            android:text="Trucks/VAN"
+            android:layout_marginLeft="15dp"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r17"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Seedan"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r18"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Jeepney"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r19"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Tricycle"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r20"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Failure to Present CPC"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Failure to Provide Proper Body Markings"
+            android:fontFamily="@font/prompt_bold"
+            android:textStyle="bold"
+            android:textSize="13sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r21"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Capacity Marking"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r22"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Side Plate"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:id="@+id/r23"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Business Name Marking"
+            android:fontFamily="@font/prompt"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancel_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#00425A"
+                android:fontFamily="@font/prompt_bold"
+                android:text="Cancel"
+                app:cornerRadius="8dp"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/confirm_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#00425A"
+                android:fontFamily="@font/prompt_bold"
+                android:text="Confirm"
+                app:cornerRadius="8dp"
+                android:layout_marginEnd="4dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

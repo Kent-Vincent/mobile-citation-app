@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please sign here:"
+        android:fontFamily="@font/prompt"
+        android:textSize="20sp" />
+
+    <com.github.gcacace.signaturepad.views.SignaturePad
+        android:layout_width="match_parent"
+        android:id="@+id/signature"
+        android:layout_height="300dp"
+        android:foreground="@drawable/highlight_signature"
+        android:padding="8dp"
+        app:penColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="100dp"
+            android:id="@+id/reset_sign"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:backgroundTint="#E64C1C"
+            android:text="Clear"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="10dp" />
+
+        <Button
+            android:layout_width="100dp"
+            android:id="@+id/submit_sign"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:backgroundTint="#00425A"
+            android:text="Submit"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select"
+        android:fontFamily="@font/prompt"
+        android:textSize="20sp"
+        android:layout_marginLeft="10dp"/>
+
+    <LinearLayout
+        android:layout_width="393dp"
+        android:layout_height="122dp"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:onClick="onCameraOptionClick"
+        android:orientation="horizontal">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="315dp"
+            android:layout_height="86dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/camera_button"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="30dp">
+
+            <ImageView
+                android:layout_width="97dp"
+                android:layout_height="match_parent"
+                android:contentDescription="Camera Icon"
+                android:src="@drawable/camera_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/prompt"
+                android:text="Camera"
+                android:textSize="26sp" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="397dp"
+        android:layout_height="106dp"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:onClick="onGalleryOptionClick"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="315dp"
+            android:layout_height="86dp"
+            android:layout_marginLeft="10dp"
+            android:clickable="true"
+            android:id="@+id/gallery_button"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="30dp">
+
+            <ImageView
+                android:layout_width="97dp"
+                android:layout_height="match_parent"
+                android:contentDescription="Gallery Icon"
+                android:src="@drawable/gallery_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/prompt"
+                android:text="Gallery"
+                android:textSize="26sp" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</LinearLayout>

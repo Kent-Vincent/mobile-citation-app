@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    android:layout_margin="8dp">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:padding="16dp"
+        android:rowCount="2">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="352dp"
+                android:layout_height="168dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/violation_Recycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/prompt_bold"
+                    android:text="Driving With SP(Not Accompanied by Professional Driver)"
+                    android:textColor="#00425a"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/licenseNumberRecycle"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/violation_Recycle"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="8dp"
+                    android:fontFamily="@font/prompt"
+                    android:maxLines="1"
+                    android:text="L02-91-072167"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/nameRecycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/licenseNumberRecycle"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/prompt"
+                    android:text="Full Name: "
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/totalPrice_Recycle"
+                    android:layout_gravity="bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_below="@+id/nameRecycle"
+                    android:fontFamily="@font/prompt"
+                    android:text="Total Price: "
+                    android:textColor="#00425a"
+                    android:textSize="24sp" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </GridLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/cancel_button_recycle"
+        android:layout_width="50dp"
+        android:layout_marginLeft="250dp"
+        android:layout_height="50dp"
+        android:layout_gravity="right"
+        android:src="@drawable/cancel"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycleView2"
+        android:layout_marginTop="100dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>
