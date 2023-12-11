@@ -134,10 +134,12 @@ public class Login_CT extends AppCompatActivity {
                     if ("Treasurer".equals(accountType)) {
                         Intent treasurerIntent = new Intent(getApplicationContext(), TreasurerScanner.class);
                         startActivity(treasurerIntent);
+                        Toast.makeText(Login_CT.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
                         finish();
                     } else if ("Officer".equals(accountType)) {
                         Intent officerIntent = new Intent(getApplicationContext(), Dashboard.class);
                         startActivity(officerIntent);
+                        Toast.makeText(Login_CT.this, "You can't access!", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }

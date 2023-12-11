@@ -17,9 +17,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
-
+    private DatabaseReference databaseReference;
     EditText email,password;
     String Email, Password;
     Button login;
@@ -27,6 +32,17 @@ public class Login extends AppCompatActivity {
     SharedPreferences sp;
 
     private String validatedEmail;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        email.setText(validatedEmail);
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            String userEmail = currentUser.getEmail();
+            checkAccountTypeAndRedirect(userEmail);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +55,11 @@ public class Login extends AppCompatActivity {
 
         login = findViewById(R.id.btn_login);
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+
         sp = getSharedPreferences("userEmail", Context.MODE_PRIVATE);
         validatedEmail = getIntent().getStringExtra("emailFromRecycle");
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,15 +101,30 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        email.setText(validatedEmail);
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-            startActivity(intent);
-            finish();
-        }
+    private void checkAccountTypeAndRedirect(String userEmail) {
+        databaseReference.orderByChild("Email").equalTo(userEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String accountType = userSnapshot.child("AccountType").getValue(String.class);
+
+                    if ("Treasurer".equals(accountType)) {
+                        Intent treasurerIntent = new Intent(getApplicationContext(), TreasurerScanner.class);
+                        startActivity(treasurerIntent);
+                        Toast.makeText(Login.this, "You can't access!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else if ("Officer".equals(accountType)) {
+                        Intent officerIntent = new Intent(getApplicationContext(), Dashboard.class);
+                        startActivity(officerIntent);
+                        Toast.makeText(Login.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Login.this, "Error checking account type.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
