@@ -1,25 +1,21 @@
 package com.example.capstone;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
 public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHolder> {
 
-    private FirebaseUser currentUser;
     private FirebaseAuth auth;
 
     private static Context context;
@@ -55,10 +51,6 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
         return accounts.size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.mListener = listener;
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView email;
         TextView nicknames;
@@ -73,16 +65,8 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
                 @Override
                 public void onClick(View view) {
                     String clickedEmail = email.getText().toString();
-
-                    currentUser = auth.getCurrentUser();
-                    if (currentUser != null){
-                        Toast.makeText(view.getContext(), "You are already Logged in", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(view.getContext(), Dashboard.class);
-                        view.getContext().startActivity(intent);
-                    }else{
-                        Intent intent = new Intent(view.getContext(), Login.class);
-                        intent.putExtra("emailFromRecycle", clickedEmail);
-                        view.getContext().startActivity(intent);
+                    if (mListener != null) {
+                        mListener.onItemClick(clickedEmail);
                     }
                 }
             });

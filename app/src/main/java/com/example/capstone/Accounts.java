@@ -4,14 +4,16 @@ public class Accounts {
     private String Name;
 
     private String Email;
+    private String AccountType;
 
     public Accounts(){
 
     }
 
-    public Accounts(String name, String email){
+    public Accounts(String name, String email, String accountType){
         this.Name = name;
         this.Email = email;
+        this.AccountType = accountType;
     }
 
     public String getName(){
@@ -28,5 +30,13 @@ public class Accounts {
 
     public void setEmail(String email) {
         this.Email = email;
+    }
+
+    public String getAccountType() {
+        return AccountType;
+    }
+
+    public void setAccountType(String accountType) {
+        AccountType = accountType;
     }
 }

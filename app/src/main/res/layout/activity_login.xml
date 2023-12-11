@@ -9,6 +9,14 @@
     tools:context=".Login">
 
     <ImageView
+        android:layout_marginLeft="300dp"
+        android:id="@+id/manyUser"
+        android:layout_marginTop="20dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/userdash"/>
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="293dp"
         android:layout_marginLeft="210dp"
