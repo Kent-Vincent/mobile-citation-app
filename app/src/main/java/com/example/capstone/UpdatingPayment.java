@@ -56,6 +56,13 @@ public class UpdatingPayment extends AppCompatActivity {
 
         checkPaymentStatus(uniqueID);
 
+        payed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updatePaymentStatus(uniqueID);
+            }
+        });
+
         again.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +92,7 @@ public class UpdatingPayment extends AppCompatActivity {
                                 if (paymentStatus != null) {
                                     status.setText("STATUS PAYMENT: " + paymentStatus);
 
-                                    if ("Paid".equals(paymentStatus)){
+                                    if ("Paid".equals(paymentStatus)) {
                                         status.setTextColor(Color.GREEN);
                                         again.setVisibility(View.VISIBLE);
                                         payed.setVisibility(View.INVISIBLE);
@@ -102,9 +109,62 @@ public class UpdatingPayment extends AppCompatActivity {
 
                     if (!found) {
                         status.setText("STATUS PAYMENT: Not Found");
+                        again.setVisibility(View.VISIBLE);
+                        payed.setVisibility(View.INVISIBLE);
                     }
                 } else {
                     status.setText("STATUS PAYMENT: Not Found");
+                    again.setVisibility(View.VISIBLE);
+                    payed.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("PaymentStatus", "Database error: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    private void updatePaymentStatus(String uniqueID) {
+        DatabaseReference uploadsRef = databaseReference.child("uploads").child("Information");
+
+        uploadsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean found = false;
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot entrySnapshot : userSnapshot.getChildren()) {
+                            String transactionID = entrySnapshot.child("TransactionID").getValue(String.class);
+
+                            if (transactionID != null && transactionID.equals(uniqueID)) {
+                                found = true;
+
+                                // Update the payment status to "Paid"
+                                entrySnapshot.getRef().child("Status").setValue("Paid");
+
+                                // Update the UI accordingly
+                                status.setText("STATUS PAYMENT: Paid");
+                                status.setTextColor(Color.GREEN);
+                                again.setVisibility(View.VISIBLE);
+                                payed.setVisibility(View.INVISIBLE);
+
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!found) {
+                        status.setText("STATUS PAYMENT: Not Found");
+                        again.setVisibility(View.VISIBLE);
+                        payed.setVisibility(View.INVISIBLE);
+                    }
+                } else {
+                    status.setText("STATUS PAYMENT: Not Found");
+                    again.setVisibility(View.VISIBLE);
+                    payed.setVisibility(View.INVISIBLE);
                 }
             }
 
