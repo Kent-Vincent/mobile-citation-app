@@ -115,17 +115,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="200dp"
-                android:layout_marginTop="410dp"
-                android:fontFamily="@font/prompt"
-                android:text="Create An Account"
-                android:textColor="#00425A"
-                android:textSize="15sp" />
-
         </LinearLayout>
 
         <Button
@@ -133,7 +122,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="440dp"
+            android:layout_marginTop="410dp"
             android:backgroundTint="#E6D81C"
             android:fontFamily="@font/prompt_bold"
             android:text="Sign In"

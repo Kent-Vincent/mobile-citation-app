@@ -124,7 +124,7 @@ public class Login_CT extends AppCompatActivity {
                     foundUser = true;
                     String accountType = userSnapshot.child("AccountType").getValue(String.class);
                     if ("Treasurer".equals(accountType)) {
-                        Intent intent = new Intent(Login_CT.this, Dashboard.class);
+                        Intent intent = new Intent(Login_CT.this, TreasurerScanner.class);
                         startActivity(intent);
                         finish();
                     } else {
