@@ -19,11 +19,38 @@
         android:layout_marginLeft="30dp"/>
 
     <Button
-        android:id="@+id/scanButton"
+        android:id="@+id/toNextActivity"
+        android:backgroundTint="#E6D81C"
+        android:fontFamily="@font/prompt_bold"
         android:layout_below="@id/zxingScannerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Scan QR Code"
-        android:layout_margin="16dp" />
+        android:visibility="invisible"
+        android:text="PROCEED TO PAYMENT"
+        android:layout_margin="16dp"
+        app:cornerRadius="10dp"/>
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zxingScannerView"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#00425A"
+        android:drawableLeft="@drawable/logoutv2"
+        android:elevation="2dp"
+        android:fontFamily="@font/prompt_bold"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="LOG OUT"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:cornerRadius="10dp" />
+
+
 
 </RelativeLayout>

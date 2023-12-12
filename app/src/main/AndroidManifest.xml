@@ -26,6 +26,9 @@
         android:theme="@style/Theme.Capstone"
         tools:targetApi="31">
         <activity
+            android:name=".UpdatingPayment"
+            android:exported="false" />
+        <activity
             android:name=".TreasurerScanner"
             android:exported="false" />
         <activity

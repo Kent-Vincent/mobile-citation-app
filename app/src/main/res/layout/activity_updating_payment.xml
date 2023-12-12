@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdatingPayment">
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STATUS PAYMENT: PENDING"
+        android:fontFamily="@font/prompt_bold"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:textColor="#FF0000"/>
+
+    <TextView
+        android:id="@+id/qrContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/status"
+        android:text="qr content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/prompt" />
+
+    <Button
+        android:id="@+id/paymentButton"
+        android:backgroundTint="#E6D81C"
+        android:fontFamily="@font/prompt_bold"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/status"
+        android:text="PAYED"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="520dp"
+        app:cornerRadius="10dp"/>
+
+    <Button
+        android:id="@+id/scanAgain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_below="@id/status"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#00425A"
+        android:drawableLeft="@drawable/goback"
+        android:elevation="2dp"
+        android:fontFamily="@font/prompt_bold"
+        android:visibility="invisible"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="SCAN AGAIN"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:cornerRadius="10dp" />
+
+
+</RelativeLayout>

@@ -52,6 +52,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 public class MoreDetails extends AppCompatActivity {
 
@@ -69,6 +70,8 @@ public class MoreDetails extends AppCompatActivity {
     String Name, License, Plate, Location, OR, CER;
     //GETTING USERNAME
     String Officer, newOfficer;
+    //UNIQUE ID
+    String uniqueIdentifier;
     LocationRequest locationRequest;
     private EditText currentTargetEditText;
 
@@ -113,6 +116,7 @@ public class MoreDetails extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                uniqueIdentifier = UUID.randomUUID().toString();
                 Name = name.getText().toString();
                 License = license.getText().toString().trim();
                 Plate = plate.getText().toString().trim();
@@ -120,8 +124,13 @@ public class MoreDetails extends AppCompatActivity {
                 OR = or.getText().toString().trim();
                 Location = address.getText().toString().trim();
 
-                QR_text = "Name: " + Name + "\nLicense Number: " + License + "\nPlate Number: " + Plate +
-                        "\nLocation: " + Location + "\nDate and Time: " + savedCurrentDateTime + "\nCER: " + CER +
+                QR_text = "uniqueID: " + uniqueIdentifier +
+                        "\nName: " + Name +
+                        "\nLicense Number: " + License +
+                        "\nPlate Number: " + Plate +
+                        "\nLocation: " + Location +
+                        "\nDate and Time: " + savedCurrentDateTime +
+                        "\nCER: " + CER +
                         "\nOR: " + OR;
 
                 if (Name.isEmpty() && License.isEmpty() && Plate.isEmpty() && CER.isEmpty() && OR.isEmpty()){
@@ -405,6 +414,7 @@ public class MoreDetails extends AppCompatActivity {
                             } catch (IOException e){
                                 e.printStackTrace();
                             }
+                            editor.putString("uniqueID", uniqueIdentifier);
                             editor.putString("Name", Name);
                             editor.putString("License", License);
                             editor.putString("Plate", Plate);

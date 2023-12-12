@@ -76,7 +76,7 @@ public class Preview extends AppCompatActivity {
     ImageView signPic, QRImage;
     String finalString, finalPriceString, combined_price;
     String formattedPrice;
-    String savedName, savedLicense, savedPlate, savedCER, savedOR, savedLocation, savedOfficer, savedCurrentDateTime;
+    String savedName, savedLicense, savedPlate, savedCER, savedOR, savedLocation, savedOfficer, savedCurrentDateTime, savedUniqueID;
     String filepathSign, filepathQR;
     String licenseFileName, licenseFilePath, signatureFileName, signatureFilePath, qrCodeFileName, qrCodeFilePath;
     Bitmap signatureBitmap, qrCodeBitmap, bitmapLicense;
@@ -132,6 +132,7 @@ public class Preview extends AppCompatActivity {
         savedCurrentDateTime = preferences1.getString("CurrentDateTime", "");
         //MORE DETAILS PREFERENCE
         SharedPreferences preferences2 = getSharedPreferences("more_details", Context.MODE_PRIVATE);
+        savedUniqueID = preferences2.getString("uniqueID", "");
         savedName = preferences2.getString("Name", "");
         savedLicense = preferences2.getString("License", "");
         savedPlate = preferences2.getString("Plate", "");
@@ -336,6 +337,7 @@ public class Preview extends AppCompatActivity {
     private void additionalData(String signatureImageUrl, String qrCodeImageUrl){
         DatabaseReference userRef = mDatabaseRef.child("Information").child(userUid);
         DatabaseReference newRecordRef = userRef.push();
+        newRecordRef.child("TransactionID").setValue(savedUniqueID);
         newRecordRef.child("Name").setValue(savedName);
         newRecordRef.child("Violation").setValue(newFinalString);
         newRecordRef.child("TotalPrice").setValue(formattedPrice);
@@ -348,7 +350,7 @@ public class Preview extends AppCompatActivity {
         newRecordRef.child("CER").setValue(savedCER);
         newRecordRef.child("Status").setValue(Pending);
 
-        //newRecordRef.child("signatureImageUrl").setValue(signatureImageUrl);
-        //newRecordRef.child("qrCodeImageUrl").setValue(qrCodeImageUrl);
+        newRecordRef.child("signatureImageUrl").setValue(signatureImageUrl);
+        newRecordRef.child("qrCodeImageUrl").setValue(qrCodeImageUrl);
     }
 }
