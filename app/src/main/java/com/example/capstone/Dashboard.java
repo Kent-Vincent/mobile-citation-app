@@ -12,6 +12,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +34,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -54,6 +54,7 @@ public class Dashboard extends AppCompatActivity {
     private StorageReference storageReference;
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
+    private DatabaseReference databaseReference;
 
     CircleImageView image;
     TextView user;
@@ -61,6 +62,7 @@ public class Dashboard extends AppCompatActivity {
 
     CardView createNewTicket, transaction, scan, logout;
     private String Name, LicenseNo, PlateNo;
+    private String encryptedQRCode, decryptedQRCode;
 
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 1001;
     private static final int STORAGE_PERMISSION_REQUEST_CODE = 1002;
@@ -111,6 +113,7 @@ public class Dashboard extends AppCompatActivity {
         storageReference = storage.getReference();
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         image = findViewById(R.id.imageChange);
 
@@ -360,13 +363,11 @@ public class Dashboard extends AppCompatActivity {
         barLauncher.launch(options);
     }
 
-    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result ->
-    {
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
             try {
-                String encryptedQRCode = result.getContents();
-
-                String decryptedQRCode = Crypto.decrypt(encryptedQRCode);
+                encryptedQRCode = result.getContents();
+                decryptedQRCode = Crypto.decrypt(encryptedQRCode);
 
                 String[] qrFields = decryptedQRCode.split("\n");
 
@@ -380,48 +381,54 @@ public class Dashboard extends AppCompatActivity {
                     }
                 }
 
-                searchAndCountEntries(LicenseNo, PlateNo);
-
-
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(Dashboard.this);
-                builder.setMessage("Decrypted QR Code:\n" + decryptedQRCode);
-                builder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.dismiss());
-                builder.show();
-            }
-            catch (Exception e) {
+                countMatchingEntries(LicenseNo);
+            } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Decryption Failed", Toast.LENGTH_SHORT).show();
             }
         }
     });
 
-    private void searchAndCountEntries(String licenseNo, String plateNo) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("uploads/Information");
+    private void countMatchingEntries(String licenseNo) {
+        DatabaseReference uploadsRef = databaseReference.child("uploads").child("Information");
 
-        Query query = databaseReference.orderByChild("LicenseNumber").equalTo(licenseNo);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        uploadsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int count = 0;
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String retrievedPlateNo = snapshot.child("PlateNumber").getValue(String.class);
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot entrySnapshot : userSnapshot.getChildren()) {
+                            String retrievedLicenseNo = entrySnapshot.child("LicenseNumber").getValue(String.class);
 
-                    if (retrievedPlateNo != null && retrievedPlateNo.equals(plateNo)) {
-                        count++;
+                            if (retrievedLicenseNo != null && retrievedLicenseNo.equals(licenseNo)) {
+                                count++;
+                            }
+                        }
                     }
                 }
 
-                String countResult = String.valueOf(count);
-                Toast.makeText(Dashboard.this, "Number of matching entries: " + countResult, Toast.LENGTH_SHORT).show();
+                // Process the count as needed
+                handleCountResult(count);
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Handle errors, if any
-                Toast.makeText(Dashboard.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("CountEntries", "Database error: " + databaseError.getMessage());
             }
         });
+    }
+
+    private void handleCountResult(int count) {
+        String countResult = String.valueOf(count);
+
+        Toast.makeText(Dashboard.this, "Number of matching entries: " + countResult, Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Dashboard.this);
+        builder.setMessage("Decrypted QR Code:\n" + decryptedQRCode +
+                "\nNumber of matching entries: " + countResult);
+        builder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.dismiss());
+        builder.show();
     }
 }

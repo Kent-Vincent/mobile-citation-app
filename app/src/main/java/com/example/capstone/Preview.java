@@ -264,7 +264,8 @@ public class Preview extends AppCompatActivity {
                             "[R]TOTAL PRICE :[R]"+formattedPrice+"\n" +
                             "[C]"+"--------------------------------\n" +
                             "[C]"+"--------------------------------\n" +
-                            "[L]"+PaymentDetails+"\n"
+                            "[L]"+PaymentDetails+"\n" +
+                            "[L]\n"
 
             );
             uploadingDialog.loadingAlertDialog();
