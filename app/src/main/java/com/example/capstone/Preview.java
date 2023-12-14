@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,7 +32,6 @@ import androidx.core.content.ContextCompat;
 import com.dantsu.escposprinter.EscPosPrinter;
 import com.dantsu.escposprinter.connection.DeviceConnection;
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection;
-import com.dantsu.escposprinter.textparser.PrinterTextParserQRCode;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
@@ -76,12 +74,13 @@ public class Preview extends AppCompatActivity {
     ImageView signPic, QRImage;
     String finalString, finalPriceString, combined_price;
     String formattedPrice;
-    String savedName, savedLicense, savedPlate, savedCER, savedOR, savedLocation, savedOfficer, savedCurrentDateTime, savedUniqueID;
+    String savedName, savedLicense, savedPlate, savedCER, savedOR, savedLocation, savedOfficer, savedCurrentDateTime, savedUniqueID, savedQrContent;
     String filepathSign, filepathQR;
     String licenseFileName, licenseFilePath, signatureFileName, signatureFilePath, qrCodeFileName, qrCodeFilePath;
     Bitmap signatureBitmap, qrCodeBitmap, bitmapLicense;
     int finalPrice;
     String Pending = "Pending";
+    String PaymentDetails = "Please Proceed To City Treasurer Office or Any Affiliated Government Branch This Will Serve as Your Receipt";
     String newFinalString;
 
     @Override
@@ -140,6 +139,7 @@ public class Preview extends AppCompatActivity {
         savedOR = preferences2.getString("OR", "");
         savedLocation = preferences2.getString("Location", "");
         savedOfficer = preferences2.getString("Officer", "");
+        savedQrContent = preferences2.getString("qrContent", "");
         //SIGNATURE, QR CODE, CER, OR
         filepathSign = getIntent().getStringExtra("signatureBitmap");
         filepathQR = getIntent().getStringExtra("qrcodeBitmap");
@@ -241,7 +241,6 @@ public class Preview extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BluetoothDevice selectedDevice = devicesList.get(position);
                 openBluetoothConnection(selectedDevice);
-                UploadFireBase();
                 dialog.dismiss();
             }
         });
@@ -254,19 +253,20 @@ public class Preview extends AppCompatActivity {
         try {
             connection.connect();
             EscPosPrinter printer = new EscPosPrinter(connection, printerDpi, printerWidth, printerNbrCharacters);
-            Bitmap qrCodeBitmap = ((BitmapDrawable) QRImage.getDrawable()).getBitmap();
-            String qrCodeHex = PrinterTextParserQRCode.bitmapToHexadecimalString(printer, qrCodeBitmap);
-             /*printer.printFormattedText(
-                    "[C]SCAN ME\n" +
-                            "[C]<img>" + qrCodeHex + "</img>\n" +
+             printer.printFormattedText(
+                            "[L]\n" +
+                            "[C]SCAN ME\n" +
+                            "[C]<qrcode size='40'>"+savedQrContent+"</qrcode>\n" +
                             "[C]"+"================================\n" +
                             "[C]<u><font size='big'>VIOLATION</font></u>\n"+
                             "[L]"+finalString+"\n"+
-                           "[C]"+"--------------------------------\n" +
+                            "[C]"+"--------------------------------\n" +
                             "[R]TOTAL PRICE :[R]"+formattedPrice+"\n" +
                             "[C]"+"--------------------------------\n" +
-                            "[C]"+"--------------------------------\n"
-            );*/
+                            "[C]"+"--------------------------------\n" +
+                            "[L]"+PaymentDetails+"\n"
+
+            );
             uploadingDialog.loadingAlertDialog();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {

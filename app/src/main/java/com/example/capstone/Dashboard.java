@@ -29,6 +29,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -54,6 +60,7 @@ public class Dashboard extends AppCompatActivity {
     String email, newEmail;
 
     CardView createNewTicket, transaction, scan, logout;
+    private String Name, LicenseNo, PlateNo;
 
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 1001;
     private static final int STORAGE_PERMISSION_REQUEST_CODE = 1002;
@@ -361,6 +368,22 @@ public class Dashboard extends AppCompatActivity {
 
                 String decryptedQRCode = Crypto.decrypt(encryptedQRCode);
 
+                String[] qrFields = decryptedQRCode.split("\n");
+
+                for (String field : qrFields) {
+                    if (field.startsWith("Name")) {
+                        Name = field.replace("Name: ", "");
+                    } else if (field.startsWith("License Number")) {
+                        LicenseNo = field.replace("License Number: ", "");
+                    } else if (field.startsWith("Plate Number")) {
+                        PlateNo = field.replace("Plate Number: ", "");
+                    }
+                }
+
+                searchAndCountEntries(LicenseNo, PlateNo);
+
+
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(Dashboard.this);
                 builder.setMessage("Decrypted QR Code:\n" + decryptedQRCode);
                 builder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.dismiss());
@@ -372,4 +395,33 @@ public class Dashboard extends AppCompatActivity {
             }
         }
     });
+
+    private void searchAndCountEntries(String licenseNo, String plateNo) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("uploads/Information");
+
+        Query query = databaseReference.orderByChild("LicenseNumber").equalTo(licenseNo);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int count = 0;
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String retrievedPlateNo = snapshot.child("PlateNumber").getValue(String.class);
+
+                    if (retrievedPlateNo != null && retrievedPlateNo.equals(plateNo)) {
+                        count++;
+                    }
+                }
+
+                String countResult = String.valueOf(count);
+                Toast.makeText(Dashboard.this, "Number of matching entries: " + countResult, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle errors, if any
+                Toast.makeText(Dashboard.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

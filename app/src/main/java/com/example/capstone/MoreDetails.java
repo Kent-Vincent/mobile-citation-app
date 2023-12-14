@@ -422,6 +422,7 @@ public class MoreDetails extends AppCompatActivity {
                             editor.putString("OR", OR);
                             editor.putString("Location", finalLocation);
                             editor.putString("Officer", newOfficer);
+                            editor.putString("qrContent", QR_text);
                             editor.apply();
 
                             Intent intent = new Intent(MoreDetails.this, Preview.class);
