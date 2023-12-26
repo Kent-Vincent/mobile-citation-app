@@ -9,7 +9,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
-            android:layout_height="145dp"
+            android:layout_height="155dp"
             android:id="@+id/cardViewViolations"
             android:background="@drawable/highlight_cardview"
             android:foreground="?attr/selectableItemBackground"
@@ -42,8 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="No License"
-                android:textSize="12sp"
-                android:gravity="center"
+                android:textSize="15sp"
                 android:fontFamily="@font/prompt_bold"
                 android:layout_marginTop="105dp"
                 android:layout_marginLeft="5dp"/>

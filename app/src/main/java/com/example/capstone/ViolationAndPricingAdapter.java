@@ -2,6 +2,8 @@ package com.example.capstone;
 
 
 import android.content.Context;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +49,14 @@ public class ViolationAndPricingAdapter extends RecyclerView.Adapter<ViolationAn
 
         holder.name.setText(""+item.getName());
 
-        if (item.getName().equals("Please Specify")) {
-            holder.price.setVisibility(View.GONE);
+        if (item.getName().length() > 29 && item.getName().length() <= 58) {
+            holder.name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+        }
+        else if (item.getName().length() > 59) {
+            holder.name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
+        }
+        else {
+            holder.name.setGravity(Gravity.CENTER);
         }
         holder.price.setText(""+item.getPrice());
 
