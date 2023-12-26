@@ -62,7 +62,7 @@ public class MoreDetails extends AppCompatActivity {
 
     Button submit, clearSign, submitSign;
     EditText name, license, plate, or, cer;
-    ImageView barCodeLicense, barcodeCER, barcodeOR, licenseImageReview;
+    ImageView barcodeCER, barcodeOR, licenseImageReview;
     TextView address;
     String QR_text;
     String savedCurrentDateTime;
@@ -103,7 +103,6 @@ public class MoreDetails extends AppCompatActivity {
         or = findViewById(R.id.or_Number);
 
         submit = findViewById(R.id.submit_ticket);
-        barCodeLicense = findViewById(R.id.barCodeLicense);
         barcodeCER = findViewById(R.id.barCode_CER);
         barcodeOR = findViewById(R.id.barCode_OR);
 
@@ -160,13 +159,6 @@ public class MoreDetails extends AppCompatActivity {
                         Toast.makeText(MoreDetails.this, "Encryption Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
-        });
-
-        barCodeLicense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
             }
         });
 
