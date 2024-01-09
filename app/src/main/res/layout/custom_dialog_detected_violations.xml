@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/warningMessage"
+        android:layout_height="wrap_content"
+        android:text="We have identified multiple violations \n associated with this individual."
+        android:textColor="#FF0000"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/prompt_bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ViolatedTimes"
+        android:layout_below="@+id/warningMessage"
+        android:text="Violated Times: "
+        android:textSize="15sp"
+        android:fontFamily="@font/prompt"
+        android:textColor="#00425A"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/violations"
+        android:text="Violations: "
+        android:textSize="15sp"
+        android:layout_below="@+id/ViolatedTimes"
+        android:fontFamily="@font/prompt"
+        android:textColor="#00425A"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"/>
+
+    <Button
+        android:layout_width="310dp"
+        android:id="@+id/oK"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/violations"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:backgroundTint="#00425A"
+        android:text="PROCEED"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="10dp" />
+
+
+
+</RelativeLayout>

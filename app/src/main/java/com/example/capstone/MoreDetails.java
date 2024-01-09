@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,11 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -59,6 +65,7 @@ public class MoreDetails extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int LOCATION_REQUEST = 1003;
     private static final int LOCATION_REQUEST_CHECK_SETTINGS = 1004;
+    private DatabaseReference databaseReference;
 
     Button submit, clearSign, submitSign;
     EditText name, license, plate, or, cer;
@@ -84,6 +91,8 @@ public class MoreDetails extends AppCompatActivity {
         setContentView(R.layout.activity_more_details);
 
         checkLocationSettings();
+        //Database
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         SharedPreferences preferences2 = getSharedPreferences("violation", Context.MODE_PRIVATE);
         savedCurrentDateTime = preferences2.getString("CurrentDateTime", "");
@@ -154,7 +163,7 @@ public class MoreDetails extends AppCompatActivity {
                     if (encryptedQRText != null){
                         QR_text = encryptedQRText;
                         getLocation();
-                        OpenDialog();
+                        countMatchingEntries(License);
                     }else{
                         Toast.makeText(MoreDetails.this, "Encryption Failed", Toast.LENGTH_SHORT).show();
                     }
@@ -347,6 +356,79 @@ public class MoreDetails extends AppCompatActivity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+    }
+
+    private void countMatchingEntries(String licenseNo) {
+        DatabaseReference uploadsRef = databaseReference.child("uploads").child("Information");
+
+        uploadsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int count = 0;
+                StringBuilder violationsStringBuilder = new StringBuilder();
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot entrySnapshot : userSnapshot.getChildren()) {
+                            String retrievedLicenseNo = entrySnapshot.child("LicenseNumber").getValue(String.class);
+
+                            if (retrievedLicenseNo != null && retrievedLicenseNo.equals(licenseNo)) {
+                                count++;
+
+                                String violation = entrySnapshot.child("Violation").getValue(String.class);
+                                violationsStringBuilder.append("\nViolation: ").append(violation);
+                            }
+                        }
+                    }
+                }
+
+                handleCountResult(count, violationsStringBuilder.toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("CountEntries", "Database error: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    private void handleCountResult(int count, String violations) {
+        if (count > 0) {
+            showWarningDialog(count, violations);
+        } else {
+            getLocation();
+            OpenDialog();
+        }
+    }
+
+    private void showWarningDialog(int count, String violations) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View customLayout = getLayoutInflater().inflate(R.layout.custom_dialog_detected_violations, null);
+        builder.setView(customLayout);
+        AlertDialog dialog = builder.create();
+        Button OK;
+        TextView times, ViolationsTV;
+        OK = customLayout.findViewById(R.id.oK);
+        times = customLayout.findViewById(R.id.ViolatedTimes);
+        ViolationsTV = customLayout.findViewById(R.id.violations);
+        dialog.show();
+
+        String countResult = String.valueOf(count);
+
+        violations = violations.replace("\\\\n", "\n");
+
+        times.setText("Violated Times: "+countResult);
+        ViolationsTV.setText(violations);
+
+        OK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                getLocation();
+                OpenDialog();
+            }
+        });
+
     }
 
     private void OpenDialog(){
