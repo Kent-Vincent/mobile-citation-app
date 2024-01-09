@@ -70,7 +70,7 @@ public class MoreDetails extends AppCompatActivity {
     Button submit, clearSign, submitSign;
     EditText name, license, plate, or, cer;
     ImageView barcodeCER, barcodeOR, licenseImageReview;
-    TextView address;
+    TextView address, orTv, cerTv;
     String QR_text;
     String savedCurrentDateTime;
     String finalLocation;
@@ -81,6 +81,7 @@ public class MoreDetails extends AppCompatActivity {
     String uniqueIdentifier;
     LocationRequest locationRequest;
     private EditText currentTargetEditText;
+
 
     QRLoadingDialog loadingDialog = new QRLoadingDialog(MoreDetails.this);
     private Bitmap qrCodeBitmap;
@@ -116,6 +117,8 @@ public class MoreDetails extends AppCompatActivity {
         barcodeOR = findViewById(R.id.barCode_OR);
 
         address = findViewById(R.id.location);
+        orTv = findViewById(R.id.OR);
+        cerTv = findViewById(R.id.CER);
 
         //LOCATION
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -132,6 +135,13 @@ public class MoreDetails extends AppCompatActivity {
                 OR = or.getText().toString().trim();
                 Location = address.getText().toString().trim();
 
+                if (CER.isEmpty() && OR.isEmpty()) {
+                    CER = "BLANK";
+                    OR = "BLANK";
+                    orTv.setText("BLANK");
+                    cerTv.setText("BLANK");
+                }
+
                 QR_text = "uniqueID: " + uniqueIdentifier +
                         "\nName: " + Name +
                         "\nLicense Number: " + License +
@@ -141,7 +151,7 @@ public class MoreDetails extends AppCompatActivity {
                         "\nCER: " + CER +
                         "\nOR: " + OR;
 
-                if (Name.isEmpty() && License.isEmpty() && Plate.isEmpty() && CER.isEmpty() && OR.isEmpty()){
+                if (Name.isEmpty() && License.isEmpty() && Plate.isEmpty()){
                     Toast.makeText(MoreDetails.this, "Don't Leave Blank!", Toast.LENGTH_SHORT).show();
                 }
                 else if (Name.isEmpty()){
@@ -153,12 +163,7 @@ public class MoreDetails extends AppCompatActivity {
                 else if (Plate.isEmpty()){
                     Toast.makeText(MoreDetails.this, "Plate Number cannot be Empty!", Toast.LENGTH_SHORT).show();
                 }
-                else if (CER.isEmpty()) {
-                    Toast.makeText(MoreDetails.this, "CER cannot be Empty!", Toast.LENGTH_SHORT).show();
-                }
-                else if (OR.isEmpty()) {
-                    Toast.makeText(MoreDetails.this, "OR cannot be Empty!", Toast.LENGTH_SHORT).show();
-                } else{
+                else{
                     String encryptedQRText = encrypt(QR_text);
                     if (encryptedQRText != null){
                         QR_text = encryptedQRText;
@@ -488,12 +493,21 @@ public class MoreDetails extends AppCompatActivity {
                             } catch (IOException e){
                                 e.printStackTrace();
                             }
+                            Log.d("Debug", "CER: " + CER);
+                            Log.d("Debug", "OR: " + OR);
+                            if (!CER.isEmpty() || !OR.isEmpty()) {
+                                editor.putString("CER", CER);
+                                editor.putString("OR", OR);
+                            } else {
+                                String blankCER = cerTv.getText().toString();
+                                String blankOR = orTv.getText().toString();
+                                editor.putString("CER", blankCER);
+                                editor.putString("OR", blankOR);
+                            }
                             editor.putString("uniqueID", uniqueIdentifier);
                             editor.putString("Name", Name);
                             editor.putString("License", License);
                             editor.putString("Plate", Plate);
-                            editor.putString("CER", CER);
-                            editor.putString("OR", OR);
                             editor.putString("Location", finalLocation);
                             editor.putString("Officer", newOfficer);
                             editor.putString("qrContent", QR_text);

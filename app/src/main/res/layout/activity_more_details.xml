@@ -117,7 +117,7 @@
                 android:layout_below="@+id/license_violator"
                 android:layout_marginTop="130dp"
                 android:background="@drawable/custom_editext"
-                android:hint="CR Number"
+                android:hint="CR Number(OPTIONAL)"
                 android:paddingLeft="10dp" />
 
             <ImageView
@@ -148,7 +148,7 @@
                 android:layout_below="@+id/license_violator"
                 android:layout_marginTop="210dp"
                 android:background="@drawable/custom_editext"
-                android:hint="OR Number"
+                android:hint="OR Number(OPTIONAL)"
                 android:paddingLeft="10dp" />
 
             <ImageView
@@ -175,6 +175,26 @@
             <TextView
                 android:layout_width="304dp"
                 android:id="@+id/location"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/prompt"
+                android:visibility="invisible"
+                android:textColor="#00425A"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="304dp"
+                android:id="@+id/CER"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/prompt"
+                android:visibility="invisible"
+                android:textColor="#00425A"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="304dp"
+                android:id="@+id/OR"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/prompt"
